@@ -90,8 +90,23 @@ npm install
 npm run build
 ```
 
+安装（npm 发布后）：
+
+```bash
+npm install @umamichi-ui/common-components @umamichi-ui/common-css
+```
+
 本地联调可在消费项目中添加：
 
 ```json
 "@umamichi-ui/common-components": "file:../umamichi-ui/common-components"
 ```
+
+## 发布
+
+```bash
+npm run build
+npm publish --access public
+```
+
+版本记录见 [CHANGELOG.md](./CHANGELOG.md)。

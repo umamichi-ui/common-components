@@ -4,6 +4,25 @@
   "description": "Reusable React UI components for Umamichi sites (overlay stack, dialogs, menus)",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umamichi-ui/common-components.git"
+  },
+  "homepage": "https://github.com/umamichi-ui/common-components#readme",
+  "bugs": {
+    "url": "https://github.com/umamichi-ui/common-components/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "react",
+    "ui",
+    "overlay",
+    "modal",
+    "dialog",
+    "umamichi"
+  ],
   "files": [
     "dist",
     "src/styles"
@@ -40,7 +59,8 @@
   },
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json",
-    "dev": "vite build --watch"
+    "dev": "vite build --watch",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "@umamichi-ui/common-css": ">=0.8.0",
