@@ -1,0 +1,61 @@
+/* Full-viewport overlays（统一毛玻璃 backdrop，z-index 由 OverlayStack 内联设置） */
+.site-overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+}
+
+.site-overlay-backdrop-inactive {
+  pointer-events: none;
+}
+
+.site-overlay-backdrop--centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.site-overlay-backdrop--top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.site-overlay-backdrop--bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: stretch;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.site-overlay-backdrop--centered.is-open > .confirm-dialog,
+.site-overlay-backdrop--centered.is-open > .modal-card,
+.site-overlay-backdrop--centered.is-open > .example-modal,
+.site-overlay-backdrop--top.is-open > .site-overlay-panel,
+.site-overlay-backdrop--bottom.is-open > .mobile-action-sheet {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-overlay-backdrop {
+    background: var(--site-backdrop);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-overlay-backdrop {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--site-backdrop);
+  }
+}
