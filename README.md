@@ -1,6 +1,6 @@
 # @umamichi-ui/common-components
 
-> 以下内容为 LLM 生成，且未经人工检查，请谨慎对待
+> 以下文本由 LLM 生成，且未经人工检查，请谨慎对待
 
 Umamichi 站点共用的 React UI 组件库，与 [@umamichi-ui/common-css](https://www.npmjs.com/package/@umamichi-ui/common-css) 配合使用。
 
@@ -17,7 +17,7 @@ Umamichi 站点共用的 React UI 组件库，与 [@umamichi-ui/common-css](http
 
 ## 依赖图
 
-模块间**单向**依赖；`presence` 与 `icons` 为叶子模块，可被任意上层单独引用。
+模块间仅允许**单向**依赖；`presence` 与 `icons` 为叶子模块，可被任意上层单独引用。
 
 ```mermaid
 flowchart TB
@@ -90,8 +90,23 @@ npm install
 npm run build
 ```
 
+安装（npm 发布后）：
+
+```bash
+npm install @umamichi-ui/common-components @umamichi-ui/common-css
+```
+
 本地联调可在消费项目中添加：
 
 ```json
 "@umamichi-ui/common-components": "file:../umamichi-ui/common-components"
 ```
+
+## 发布
+
+```bash
+npm run build
+npm publish --access public
+```
+
+版本记录见 [CHANGELOG.md](./CHANGELOG.md)。
