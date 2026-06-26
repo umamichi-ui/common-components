@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-27
+
+### Changed
+
+- `about-dialog.css`、`mobile-action-sheet.css`：字号与字重对齐 common-css `--site-weight-*` 尺度（应用名/菜单项 `regular`，分区小标题 `semibold`；次要文案 `0.875rem`）。
+
+### Peer dependencies
+
+- `@umamichi-ui/common-css` 升至 `>=0.16.0`（壳层字重 token）。
+
 ## [0.1.0] - 2026-05-23
 
 First public release. Components were extracted from [njmetro-railmap-creator](https://github.com/kyuri-metro/njmetro-railmap-creator) for reuse across Umamichi sites.
@@ -29,5 +39,6 @@ First public release. Components were extracted from [njmetro-railmap-creator](h
 - `react`, `react-dom` (^18 || ^19)
 - `@umamichi-ui/common-css` (>=0.8.0)
 
-[Unreleased]: https://github.com/umamichi-ui/common-components/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/umamichi-ui/common-components/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/umamichi-ui/common-components/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/umamichi-ui/common-components/releases/tag/v0.1.0

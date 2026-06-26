@@ -75,7 +75,7 @@
 
 .mobile-action-sheet-subheader-title {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: var(--site-weight-regular);
   line-height: 1.35;
 }
 
@@ -103,6 +103,7 @@
   color: inherit;
   font: inherit;
   font-size: 1rem;
+  font-weight: var(--site-weight-regular);
   line-height: 1.35;
   text-align: left;
   cursor: pointer;
