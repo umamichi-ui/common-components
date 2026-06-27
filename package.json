@@ -1,6 +1,6 @@
 {
   "name": "@umamichi-ui/common-components",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Reusable React UI components for Umamichi sites (overlay stack, dialogs, menus)",
   "type": "module",
   "license": "MIT",

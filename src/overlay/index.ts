@@ -12,4 +12,5 @@ export {
   type OverlayStackEntry,
 } from './overlayStackTypes';
 export { SiteOverlayBackdrop, type SiteOverlayAlign, type SiteOverlayBackdropProps } from './SiteOverlayBackdrop';
+export { useOverlayFocus, type UseOverlayFocusOptions } from './useOverlayFocus';
 export { useOverlayStackEntry, type UseOverlayStackEntryOptions } from './useOverlayStackEntry';
