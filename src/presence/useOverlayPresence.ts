@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type RefObject } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react';
 
 /** Fallback when computed transition duration is unavailable (see `--transition-overlay` in common-css). */
 const FALLBACK_OVERLAY_MS = 200;
@@ -77,17 +77,37 @@ export function useOverlayPresence<T extends HTMLElement = HTMLElement>(active: 
   const [mounted, setMounted] = useState(active);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (active) {
       setMounted(true);
-      let raf2 = 0;
-      const raf1 = requestAnimationFrame(() => {
-        raf2 = requestAnimationFrame(() => setIsOpen(true));
-      });
-      return () => {
-        cancelAnimationFrame(raf1);
-        cancelAnimationFrame(raf2);
-      };
+    }
+  }, [active]);
+
+  useLayoutEffect(() => {
+    if (!active || !mounted) {
+      return;
+    }
+
+    const el = overlayRef.current;
+    if (!el) {
+      return;
+    }
+
+    // Commit closed styles before toggling is-open so CSS transitions always have a start state.
+    void el.getBoundingClientRect();
+
+    const rafId = requestAnimationFrame(() => {
+      setIsOpen(true);
+    });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+    };
+  }, [active, mounted]);
+
+  useEffect(() => {
+    if (active) {
+      return;
     }
 
     setIsOpen(false);

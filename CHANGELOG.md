@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-06-28
+
+### Fixed
+
+- `useOverlayPresence`：打开叠层时改用 `useLayoutEffect` + 强制 layout + 单帧 `requestAnimationFrame` 再添加 `is-open`，避免移动端偶发跳过 CSS 进出场过渡（原 `useEffect` + 双 `rAF` 竞态）。
+
 ## [0.2.0] - 2026-06-27
 
 ### Changed
