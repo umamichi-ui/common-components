@@ -1,6 +1,6 @@
 {
   "name": "@umamichi-ui/common-components",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Reusable React UI components for Umamichi sites (overlay stack, dialogs, menus)",
   "type": "module",
   "license": "MIT",
@@ -70,7 +70,7 @@
   "devDependencies": {
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "@umamichi-ui/common-css": "^0.16.0",
+    "@umamichi-ui/common-css": "^0.18.0",
     "@vitejs/plugin-react": "^5.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

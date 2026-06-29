@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-06-30
+
+### Changed
+
+- 开发依赖 `@umamichi-ui/common-css` 升至 `^0.18.0`（按钮 `:active` scale 按下反馈）。
+
 ## [0.3.1] - 2026-06-28
 
 ### Fixed
