@@ -32,6 +32,16 @@ export function useFloatingMenuGeometry({
       setMenuGeometry(computeFloatingMenuGeometry(trigger, menu));
     };
 
+    const onScroll = (event: Event) => {
+      const menu = menuPanelRef.current;
+      const target = event.target;
+      // Ignore the panel's own scrolling so geometry does not thrash / reset maxHeight.
+      if (menu && target instanceof Node && menu.contains(target)) {
+        return;
+      }
+      update();
+    };
+
     update();
 
     const scrollRoots: HTMLElement[] = [];
@@ -43,16 +53,16 @@ export function useFloatingMenuGeometry({
     }
 
     window.addEventListener('resize', update);
-    window.addEventListener('scroll', update, true);
+    window.addEventListener('scroll', onScroll, true);
     for (const root of scrollRoots) {
-      root.addEventListener('scroll', update, { passive: true });
+      root.addEventListener('scroll', onScroll, { passive: true });
     }
 
     return () => {
       window.removeEventListener('resize', update);
-      window.removeEventListener('scroll', update, true);
+      window.removeEventListener('scroll', onScroll, true);
       for (const root of scrollRoots) {
-        root.removeEventListener('scroll', update);
+        root.removeEventListener('scroll', onScroll);
       }
     };
   }, [menuOpen, menuMounted, scrollRootSelector]);

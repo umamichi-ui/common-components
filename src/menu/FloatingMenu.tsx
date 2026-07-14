@@ -108,6 +108,8 @@ export function FloatingMenu({
         left: menuGeometry?.left ?? -9999,
         maxHeight: menuGeometry?.maxHeight,
         overflowY: menuGeometry?.maxHeight ? 'auto' : undefined,
+        // Prevent wheel/touch overscroll from chaining to the page (avoids jitter while scrolling items).
+        overscrollBehavior: menuGeometry?.maxHeight ? 'contain' : undefined,
       }}
     >
       {items.map((entry) => {

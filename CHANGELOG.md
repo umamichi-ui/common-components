@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.3] - 2026-07-15
+
+### Fixed
+
+- `FloatingMenu` / `computeFloatingMenuGeometry`：按未限高的内容高度与上下可用空间决定开合方向与 `maxHeight`，避免限高后重算误清 `maxHeight` 导致底部项无法点选。
+- `useFloatingMenuGeometry`：忽略菜单面板自身的 `scroll`，避免滚菜单时反复重算位置而抖动。
+- `FloatingMenu`：可滚动时设置 `overscroll-behavior: contain`，减轻滚轮/触控溢出传到页面。
+
 ## [0.3.2] - 2026-06-30
 
 ### Changed
@@ -51,6 +59,9 @@ First public release. Components were extracted from [njmetro-railmap-creator](h
 - `react`, `react-dom` (^18 || ^19)
 - `@umamichi-ui/common-css` (>=0.8.0)
 
-[Unreleased]: https://github.com/umamichi-ui/common-components/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/umamichi-ui/common-components/compare/v0.3.3...HEAD
+[0.3.3]: https://github.com/umamichi-ui/common-components/compare/v0.3.2...v0.3.3
+[0.3.2]: https://github.com/umamichi-ui/common-components/compare/v0.3.1...v0.3.2
+[0.3.1]: https://github.com/umamichi-ui/common-components/compare/v0.2.0...v0.3.1
 [0.2.0]: https://github.com/umamichi-ui/common-components/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/umamichi-ui/common-components/releases/tag/v0.1.0
