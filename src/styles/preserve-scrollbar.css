@@ -1,0 +1,14 @@
+/* Overlay open: keep scrollbar visible (no width jump); freeze via fixed body. */
+html[data-site-preserve-scrollbar='true'] {
+  overflow-y: scroll;
+  overscroll-behavior: none;
+}
+
+html[data-site-preserve-scrollbar='true'] body {
+  position: fixed;
+  top: var(--site-preserve-scrollbar-y, 0px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  overscroll-behavior: none;
+}

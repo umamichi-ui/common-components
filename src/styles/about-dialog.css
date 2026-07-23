@@ -1,12 +1,13 @@
-.about-dialog {
-  width: min(calc(100vw - 48px), 36rem);
-  max-width: min(calc(100vw - 48px), 36rem);
-}
-
 .about-dialog-body {
   display: flex;
   flex-direction: column;
   gap: 0;
+}
+
+@media (min-width: 721px) {
+  .fullscreen-overlay.about-dialog {
+    max-width: min(calc(100vw - 48px), 36rem);
+  }
 }
 
 .about-dialog-product {

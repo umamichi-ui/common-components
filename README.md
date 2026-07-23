@@ -9,11 +9,11 @@ Umamichi 站点共用的 React UI 组件库，与 [@umamichi-ui/common-css](http
 | 子路径 | 内容 |
 |--------|------|
 | `@umamichi-ui/common-components/presence` | 进出场动画 hook（不依赖叠层栈） |
-| `@umamichi-ui/common-components/overlay` | 叠层栈、`SiteOverlayBackdrop` |
-| `@umamichi-ui/common-components/icons` | Chevron、下拉箭头、信息图标 |
+| `@umamichi-ui/common-components/overlay` | 叠层栈、`SiteOverlayBackdrop`、`FullscreenOverlay` |
+| `@umamichi-ui/common-components/icons` | Chevron、Close、下拉箭头、信息图标 |
 | `@umamichi-ui/common-components/menu` | `FloatingMenu`、`MobileActionSheet` |
-| `@umamichi-ui/common-components/dialog` | `ConfirmDialog`、`AboutDialog` |
-| `@umamichi-ui/common-components/styles.css` | 本库补充样式（overlay、action sheet、about） |
+| `@umamichi-ui/common-components/dialog` | `ConfirmDialog`、`ConfirmDialogOverlay`、`AboutDialog` |
+| `@umamichi-ui/common-components/styles.css` | 本库补充样式（overlay、fullscreen、action sheet、about） |
 
 ## 依赖图
 
@@ -81,7 +81,14 @@ import { OverlayStackProvider } from '@umamichi-ui/common-components/overlay';
 </OverlayStackProvider>
 ```
 
-`MobileActionSheet` 与 `ConfirmDialogOverlay` 需要外层已挂载 `OverlayStackProvider`。`FloatingMenu` 仅需 `presence` hook，不进入叠层栈。
+`MobileActionSheet` 与 `ConfirmDialogOverlay` / `FullscreenOverlay` 需要外层已挂载 `OverlayStackProvider`。`FloatingMenu` 仅需 `presence` hook，不进入叠层栈。
+
+`FullscreenOverlay` 动画使用 `@umamichi-ui/windows-phone-motion` 的 token（可选 peer）：移动端 SlideUpFade（`--wpm-slide-vertical-duration` + exp6 easing），桌面端 ContentDialog PopIn（`--wpm-turnstile-out-duration`）。消费方请引入：
+
+```tsx
+import '@umamichi-ui/windows-phone-motion/tokens.css';
+import '@umamichi-ui/windows-phone-motion/easing.css';
+```
 
 ## 开发
 

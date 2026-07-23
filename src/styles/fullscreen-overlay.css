@@ -1,0 +1,250 @@
+/* FullscreenOverlay: mobile edge-to-edge; desktop centered dialog.
+   Title typography aligns with common-css `.confirm-dialog-title`.
+   Chrome positions: mobile back (left), desktop close (right) — umamichi.moe history.
+   Frosted glass is on the portal root (same as SiteOverlayBackdrop).
+   Motion: Windows Phone Toolkit tokens from @umamichi-ui/windows-phone-motion
+   (mobile SlideUpFade; desktop ContentDialog PopIn via turnstile timing). */
+
+.fullscreen-overlay-root {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  /* Prefer 100% over 100vw so a preserved scrollbar gutter does not shift content right. */
+  min-height: 100%;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(var(--site-frosted-blur, 12px));
+  -webkit-backdrop-filter: blur(var(--site-frosted-blur, 12px));
+  background: var(--site-frosted-overlay, rgba(255, 255, 255, 0.55));
+  transition: opacity var(--wpm-slide-vertical-duration, 350ms) var(--wpm-ease-in-exp6, ease);
+}
+
+.fullscreen-overlay-root.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity var(--wpm-slide-vertical-duration, 350ms) var(--wpm-ease-out-exp6, ease);
+}
+
+.fullscreen-overlay-root-inactive {
+  pointer-events: none;
+}
+
+.fullscreen-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  height: 100%;
+  max-height: 100dvh;
+  margin: 0;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0;
+  background: var(--site-surface);
+  color: var(--site-fg);
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+  transition:
+    opacity var(--wpm-slide-vertical-duration, 350ms) var(--wpm-ease-in-exp6, ease),
+    transform var(--wpm-slide-vertical-duration, 350ms) var(--wpm-ease-in-exp6, ease);
+}
+
+.fullscreen-overlay-root.is-open > .fullscreen-overlay {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition:
+    opacity var(--wpm-slide-vertical-duration, 350ms) var(--wpm-ease-out-exp6, ease),
+    transform var(--wpm-slide-vertical-duration, 350ms) var(--wpm-ease-out-exp6, ease);
+}
+
+.fullscreen-overlay--no-chrome {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.fullscreen-overlay__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  min-height: calc(0.75rem * 2 + 2rem);
+  padding: max(0.75rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px)) 0
+    max(1rem, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
+}
+
+.fullscreen-overlay__chrome-button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.fullscreen-overlay__chrome-button:hover {
+  background: var(--site-hover-bg);
+}
+
+.fullscreen-overlay__chrome-icon {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.fullscreen-overlay__back {
+  display: inline-flex;
+}
+
+.fullscreen-overlay__close {
+  display: none;
+  margin-left: auto;
+}
+
+.fullscreen-overlay__title {
+  margin: 0;
+  padding: 0.25rem max(1rem, env(safe-area-inset-right, 0px)) 0.75rem max(1rem, env(safe-area-inset-left, 0px));
+  font-size: 1.95rem;
+  font-weight: var(--site-weight-content-h1-h2);
+  line-height: 1.32;
+  color: var(--site-fg);
+  box-sizing: border-box;
+}
+
+.fullscreen-overlay__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 0;
+  overflow: auto;
+  padding: 0 max(1rem, env(safe-area-inset-right, 0px)) max(1rem, env(safe-area-inset-bottom, 0px))
+    max(1rem, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fullscreen-overlay__body .confirm-dialog-actions {
+  margin-top: auto;
+  padding-top: 1.25rem;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .fullscreen-overlay-root {
+    background: var(--site-backdrop);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .fullscreen-overlay-root {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--site-backdrop);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fullscreen-overlay-root,
+  .fullscreen-overlay-root.is-open,
+  .fullscreen-overlay,
+  .fullscreen-overlay-root.is-open > .fullscreen-overlay {
+    transition-duration: 1ms;
+  }
+
+  .fullscreen-overlay,
+  .fullscreen-overlay-root.is-open > .fullscreen-overlay {
+    transform: none;
+  }
+}
+
+/* Desktop: centered dialog; ContentDialog-style fade + light PopIn (turnstile timing). */
+@media (min-width: 721px) {
+  .fullscreen-overlay-root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    transition-duration: var(--wpm-turnstile-out-duration, 250ms);
+  }
+
+  .fullscreen-overlay-root.is-open {
+    transition-duration: var(--wpm-turnstile-out-duration, 250ms);
+  }
+
+  .fullscreen-overlay {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    max-height: min(100dvh - 48px, 100%);
+    margin: 0;
+    border: 1px solid var(--site-border-strong);
+    transform: translateY(0.5rem);
+    transition:
+      opacity var(--wpm-turnstile-out-duration, 250ms) var(--wpm-ease-in-exp6, ease),
+      transform var(--wpm-turnstile-out-duration, 250ms) var(--wpm-ease-in-exp6, ease);
+  }
+
+  .fullscreen-overlay-root.is-open > .fullscreen-overlay {
+    transform: none;
+    transition:
+      opacity var(--wpm-turnstile-out-duration, 250ms) var(--wpm-ease-out-exp6, ease),
+      transform var(--wpm-turnstile-out-duration, 250ms) var(--wpm-ease-out-exp6, ease);
+  }
+
+  .fullscreen-overlay--compact {
+    max-width: 400px;
+  }
+
+  .fullscreen-overlay--page {
+    max-width: min(72rem, calc(100vw - 2rem));
+  }
+
+  .fullscreen-overlay--fill {
+    height: min(42rem, calc(100dvh - 2.5rem));
+    max-height: calc(100dvh - 2.5rem);
+  }
+
+  .fullscreen-overlay--fill .fullscreen-overlay__body {
+    overflow: hidden;
+  }
+
+  .fullscreen-overlay__toolbar {
+    justify-content: flex-end;
+    /* Equal inset from top and right so the close control sits equidistant from both edges. */
+    min-height: calc(0.75rem + 2rem);
+    padding: 0.75rem 0.75rem 0;
+  }
+
+  .fullscreen-overlay__back {
+    display: none;
+  }
+
+  .fullscreen-overlay__close {
+    display: inline-flex;
+  }
+
+  .fullscreen-overlay__title {
+    padding: 0.15rem 1.25rem 0.75rem;
+  }
+
+  .fullscreen-overlay__body {
+    padding: 0 1.25rem 1.125rem;
+  }
+}

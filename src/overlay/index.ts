@@ -11,6 +11,16 @@ export {
   OVERLAY_Z_STEP,
   type OverlayStackEntry,
 } from './overlayStackTypes';
+export {
+  FullscreenOverlay,
+  type FullscreenOverlayProps,
+  type FullscreenOverlaySize,
+} from './FullscreenOverlay';
+export {
+  acquirePreservedScrollbar,
+  releasePreservedScrollbar,
+} from './preserveScrollbar';
 export { SiteOverlayBackdrop, type SiteOverlayAlign, type SiteOverlayBackdropProps } from './SiteOverlayBackdrop';
 export { useOverlayFocus, type UseOverlayFocusOptions } from './useOverlayFocus';
 export { useOverlayStackEntry, type UseOverlayStackEntryOptions } from './useOverlayStackEntry';
+export { usePreservedScrollbar } from './usePreservedScrollbar';

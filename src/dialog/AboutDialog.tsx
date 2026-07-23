@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { ConfirmDialog } from './ConfirmDialog';
 import { ConfirmDialogOverlay } from './ConfirmDialogOverlay';
 
 export type AboutDialogLink = {
@@ -45,59 +44,59 @@ export function AboutDialog({
   closeLabel = '确定',
 }: AboutDialogProps) {
   return (
-    <ConfirmDialogOverlay open={open} overlayId={overlayId} onDismiss={onClose}>
-      <ConfirmDialog
-        title={dialogTitle}
-        titleId="about-dialog-title"
-        className="confirm-dialog about-dialog"
-        bodyClassName="confirm-dialog-body about-dialog-body"
-        onClick={(event) => event.stopPropagation()}
-        actionsClassName="confirm-dialog-actions about-dialog-actions"
-        actions={
-          <button type="button" className="primary-button" onClick={onClose}>
-            {closeLabel}
-          </button>
-        }
-      >
-        <div className="about-dialog-product">
-          <p className="about-dialog-app-name">{appName}</p>
-          <p className="about-dialog-version">
-            版本 {version}
-            {channelLabel ? <span className="about-dialog-channel">{channelLabel}</span> : null}
-          </p>
-          {tagline ? <p className="about-dialog-tagline">{tagline}</p> : null}
-        </div>
-
-        <p className="about-dialog-copyright">
-          © {copyrightYear} {copyrightHolder}
+    <ConfirmDialogOverlay
+      open={open}
+      overlayId={overlayId}
+      onDismiss={onClose}
+      title={dialogTitle}
+      titleId="about-dialog-title"
+      panelClassName="about-dialog"
+      bodyClassName="about-dialog-body"
+    >
+      <div className="about-dialog-product">
+        <p className="about-dialog-app-name">{appName}</p>
+        <p className="about-dialog-version">
+          版本 {version}
+          {channelLabel ? <span className="about-dialog-channel">{channelLabel}</span> : null}
         </p>
+        {tagline ? <p className="about-dialog-tagline">{tagline}</p> : null}
+      </div>
 
-        {sections.length > 0 || links.length > 0 ? <hr className="about-dialog-divider" /> : null}
+      <p className="about-dialog-copyright">
+        © {copyrightYear} {copyrightHolder}
+      </p>
 
-        {sections.map((section) => (
-          <section key={section.id} className="about-dialog-section" aria-labelledby={section.id}>
-            <h3 id={section.id} className="about-dialog-section-title">
-              {section.title}
-            </h3>
-            <div className="about-dialog-section-text">{section.content}</div>
-          </section>
-        ))}
+      {sections.length > 0 || links.length > 0 ? <hr className="about-dialog-divider" /> : null}
 
-        {links.length > 0 ? (
-          <dl className="about-dialog-meta">
-            {links.map((link) => (
-              <div key={link.label} className="about-dialog-meta-row">
-                <dt>{link.label}</dt>
-                <dd>
-                  <a href={link.href} target="_blank" rel="noreferrer">
-                    {link.href}
-                  </a>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        ) : null}
-      </ConfirmDialog>
+      {sections.map((section) => (
+        <section key={section.id} className="about-dialog-section" aria-labelledby={section.id}>
+          <h3 id={section.id} className="about-dialog-section-title">
+            {section.title}
+          </h3>
+          <div className="about-dialog-section-text">{section.content}</div>
+        </section>
+      ))}
+
+      {links.length > 0 ? (
+        <dl className="about-dialog-meta">
+          {links.map((link) => (
+            <div key={link.label} className="about-dialog-meta-row">
+              <dt>{link.label}</dt>
+              <dd>
+                <a href={link.href} target="_blank" rel="noreferrer">
+                  {link.href}
+                </a>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      ) : null}
+
+      <div className="confirm-dialog-actions about-dialog-actions">
+        <button type="button" className="primary-button" onClick={onClose}>
+          {closeLabel}
+        </button>
+      </div>
     </ConfirmDialogOverlay>
   );
 }
