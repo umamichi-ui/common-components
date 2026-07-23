@@ -1,14 +1,11 @@
-/* Overlay open: keep scrollbar visible (no width jump); freeze via fixed body. */
-html[data-site-preserve-scrollbar='true'] {
-  overflow-y: scroll;
-  overscroll-behavior: none;
+/* Overlay open: freeze scroll without width jump and without fixed body.
+   Fixed body prevents backdrop-filter from sampling page content reliably. */
+html {
+  scrollbar-gutter: stable;
 }
 
-html[data-site-preserve-scrollbar='true'] body {
-  position: fixed;
-  top: var(--site-preserve-scrollbar-y, 0px);
-  left: 0;
-  right: 0;
-  width: 100%;
+html[data-site-preserve-scrollbar='true'] {
+  overflow: hidden;
+  overflow-x: hidden;
   overscroll-behavior: none;
 }

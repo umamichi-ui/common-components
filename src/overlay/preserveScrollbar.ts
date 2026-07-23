@@ -1,10 +1,10 @@
 /**
- * Keep the viewport scrollbar visible while an overlay is open
- * (`html { overflow-y: scroll }` + fixed body), so layout width does not jump.
- * Background page scroll is frozen as a consequence of that technique.
+ * Freeze page scroll while an overlay is open without `position: fixed` on body.
+ * Fixed body breaks `backdrop-filter` sampling (milky white instead of blur),
+ * especially after mobile→desktop layout changes.
  *
- * Pair with styles from `@umamichi-ui/common-components/styles.css`
- * (`html[data-site-preserve-scrollbar='true']`).
+ * Technique: always reserve the scrollbar gutter, then `overflow: hidden` on html.
+ * Pair with styles from `@umamichi-ui/common-components/styles.css`.
  */
 
 const holders = new Set<string>();
@@ -12,13 +12,11 @@ let preservedScrollY = 0;
 
 function applyPreservedScrollbar(): void {
   preservedScrollY = window.scrollY;
-  document.documentElement.style.setProperty('--site-preserve-scrollbar-y', `-${preservedScrollY}px`);
   document.documentElement.dataset.sitePreserveScrollbar = 'true';
 }
 
 function clearPreservedScrollbar(): void {
   delete document.documentElement.dataset.sitePreserveScrollbar;
-  document.documentElement.style.removeProperty('--site-preserve-scrollbar-y');
   window.scrollTo(0, preservedScrollY);
 }
 

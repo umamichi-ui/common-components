@@ -1,4 +1,4 @@
-import { useEffect, useId, type MouseEventHandler, type ReactNode, type RefObject } from 'react';
+import { useEffect, useId, useState, type MouseEventHandler, type ReactNode, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronLeftIcon } from '../icons/ChevronIcons';
 import { CloseIcon } from '../icons/CloseIcon';
@@ -36,11 +36,36 @@ export type FullscreenOverlayProps = {
   chrome?: boolean;
 };
 
+const DESKTOP_MQ = '(min-width: 721px)';
+
+function useDesktopLayoutMode(enabled: boolean): 'mobile' | 'desktop' {
+  const [mode, setMode] = useState<'mobile' | 'desktop'>(() => {
+    if (typeof window === 'undefined') {
+      return 'mobile';
+    }
+    return window.matchMedia(DESKTOP_MQ).matches ? 'desktop' : 'mobile';
+  });
+
+  useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+
+    const mq = window.matchMedia(DESKTOP_MQ);
+    const sync = () => setMode(mq.matches ? 'desktop' : 'mobile');
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, [enabled]);
+
+  return mode;
+}
+
 /**
  * Responsive overlay shell: mobile edge-to-edge fullscreen (slide up + back),
  * desktop centered dialog (close X). Title typography follows `.confirm-dialog-title`.
  * Chrome button placement follows umamichi.moe history window.
- * Frosted glass lives on the portal root (same pattern as `SiteOverlayBackdrop`).
+ * Frost is a viewport-fixed layer remounted when the layout breakpoint changes.
  */
 export function FullscreenOverlay({
   open,
@@ -63,6 +88,7 @@ export function FullscreenOverlay({
   const generatedTitleId = useId();
   const titleId = titleIdProp ?? generatedTitleId;
   const { mounted, isOpen, overlayRef } = useOverlayPresence<HTMLDivElement>(open);
+  const layoutMode = useDesktopLayoutMode(mounted);
   const { isBackdropActive, zIndex } = useOverlayStackEntry({
     id: overlayId,
     open,
@@ -111,6 +137,8 @@ export function FullscreenOverlay({
       role="presentation"
       onClick={onBackdropClick}
     >
+      {/* Remount frost when crossing the desktop breakpoint so backdrop-filter recomposites. */}
+      <div key={layoutMode} className="fullscreen-overlay-frost" aria-hidden="true" />
       <div
         className={panelClasses}
         role="dialog"

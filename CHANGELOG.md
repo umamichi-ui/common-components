@@ -9,6 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-07-24
+
+### Fixed
+
+- `preserveScrollbar`：不再把 `body` 设为 `position: fixed`（改用 `scrollbar-gutter: stable` + `html { overflow: hidden }`），避免毛玻璃采不到页面、拉宽后变白雾。
+- `FullscreenOverlay`：毛玻璃改为独立层，并在桌面断点切换时重挂载以强制重绘。
+- `FullscreenOverlay`：桌面面板用 `width: min(100%, …)` + `flex: none` 居中；避免 `100vw`（会含滚动条宽度，导致面板偏左、右侧多出一块毛玻璃）。
+
+## [0.4.0] - 2026-07-24
+
+### Added
+
+- `FullscreenOverlay`：移动端全屏 / 桌面居中对话框壳，可选 WPM 进出场。
+- `preserveScrollbar` / `usePreservedScrollbar`：叠层打开时保留滚动条槽位。
+
+### Changed
+
+- `ConfirmDialogOverlay` / `AboutDialog` 改为基于 `FullscreenOverlay`。
+
 ## [0.3.3] - 2026-07-15
 
 ### Fixed
