@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-08-03
+
+### Fixed
+
+- `FloatingMenu`：把 `overflow-y` / `overscroll-behavior` 移到内层 `.dropdown-menu-panel__list`，外壳只负责定位、chrome 与 chromatic fringe。避免 Android Chromium 上 fringe 伪元素卡在内容滚动偏移。需配合 `@umamichi-ui/common-css` ≥ `0.19.3`。
+
+### Changed
+
+- peer / 开发依赖 `@umamichi-ui/common-css` 升至 `>=0.19.3` / `^0.19.3`（下拉内层滚动列表样式）。
+
 ## [0.4.1] - 2026-07-24
 
 ### Fixed

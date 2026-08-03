@@ -60,7 +60,7 @@ export function FloatingMenu({
   const menuId = useId();
   const [menuOpen, setMenuOpen] = useState(false);
   const { mounted: menuMounted, isOpen: menuShown, overlayRef: menuOverlayRef } =
-    useOverlayPresence<HTMLUListElement>(menuOpen);
+    useOverlayPresence<HTMLDivElement>(menuOpen);
   const { menuPanelRef, triggerRef, menuGeometry } = useFloatingMenuGeometry({
     menuOpen,
     menuMounted,
@@ -96,51 +96,68 @@ export function FloatingMenu({
     return () => window.removeEventListener('keydown', onKeyDown, true);
   }, [menuOpen]);
 
+  const scrollable = Boolean(menuGeometry?.maxHeight);
+
+  /*
+   * Shell (`.dropdown-menu-panel`) owns chrome + chromatic fringe. Scroll lives on the
+   * inner list so Android Chromium does not leave transform fringe layers stuck to the
+   * content scroll offset when overflow and fringe share one box.
+   */
   const menuPanel = menuMounted ? (
-    <ul
+    <div
       ref={mergeOverlayRefs(menuOverlayRef, menuPanelRef)}
-      id={menuId}
       className={withOverlayOpen('dropdown-menu-panel', menuShown && menuGeometry !== null)}
-      role="menu"
-      aria-label={menuAriaLabel}
       style={{
         top: menuGeometry?.top ?? -9999,
         left: menuGeometry?.left ?? -9999,
         maxHeight: menuGeometry?.maxHeight,
-        overflowY: menuGeometry?.maxHeight ? 'auto' : undefined,
-        // Prevent wheel/touch overscroll from chaining to the page (avoids jitter while scrolling items).
-        overscrollBehavior: menuGeometry?.maxHeight ? 'contain' : undefined,
+        display: scrollable ? 'flex' : undefined,
+        flexDirection: scrollable ? 'column' : undefined,
       }}
     >
-      {items.map((entry) => {
-        if (entry.kind === 'separator') {
-          return (
-            <li key={entry.id} className="dropdown-menu-separator" role="separator" aria-orientation="horizontal" />
-          );
-        }
+      <ul
+        id={menuId}
+        className="dropdown-menu-panel__list"
+        role="menu"
+        aria-label={menuAriaLabel}
+        style={{
+          flex: scrollable ? '1 1 auto' : undefined,
+          minHeight: scrollable ? 0 : undefined,
+          overflowY: scrollable ? 'auto' : undefined,
+          // Prevent wheel/touch overscroll from chaining to the page (avoids jitter while scrolling items).
+          overscrollBehavior: scrollable ? 'contain' : undefined,
+        }}
+      >
+        {items.map((entry) => {
+          if (entry.kind === 'separator') {
+            return (
+              <li key={entry.id} className="dropdown-menu-separator" role="separator" aria-orientation="horizontal" />
+            );
+          }
 
-        return (
-          <li key={entry.id} role="none">
-            <button
-              type="button"
-              className="dropdown-menu-item"
-              role="menuitem"
-              disabled={entry.disabled}
-              title={entry.title}
-              onClick={() => {
-                if (entry.disabled) {
-                  return;
-                }
-                entry.onSelect();
-                setMenuOpen(false);
-              }}
-            >
-              {entry.label}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+          return (
+            <li key={entry.id} role="none">
+              <button
+                type="button"
+                className="dropdown-menu-item"
+                role="menuitem"
+                disabled={entry.disabled}
+                title={entry.title}
+                onClick={() => {
+                  if (entry.disabled) {
+                    return;
+                  }
+                  entry.onSelect();
+                  setMenuOpen(false);
+                }}
+              >
+                {entry.label}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   ) : null;
 
   const resolvedTriggerClassName =

@@ -13,7 +13,7 @@ export function useFloatingMenuGeometry({
   menuMounted,
   scrollRootSelector,
 }: UseFloatingMenuGeometryOptions) {
-  const menuPanelRef = useRef<HTMLUListElement | null>(null);
+  const menuPanelRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const [menuGeometry, setMenuGeometry] = useState<FloatingMenuGeometry | null>(null);
 
