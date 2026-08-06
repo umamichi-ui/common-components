@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `FullscreenOverlay` 桌面面板：声明 `--chromatic-fringe-border: var(--site-border-strong)`，配合 `@umamichi-ui/chromatic-fringe` ≥ `0.4.4` 的 dialog 盒缘 fade（由应用侧 `initChromaticFringe` 扫描挂载；本包不硬依赖 init）。
+
 ## [0.4.5] - 2026-08-06
 
 ### Fixed
