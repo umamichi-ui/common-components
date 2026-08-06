@@ -136,7 +136,7 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  color: var(--site-header-fg, var(--site-fg));
+  color: inherit;
 }
 
 .mobile-action-sheet-item-icon svg {

@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `.mobile-action-sheet-item-icon`：改为 `color: inherit`，不再使用 `--site-header-fg`。暗色模式下 sheet 为深色表面时，条目图标会与正文同为浅色。
+
 ## [0.4.4] - 2026-08-06
 
 ### Changed
