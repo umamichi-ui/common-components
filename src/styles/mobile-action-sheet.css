@@ -62,6 +62,7 @@
   color: inherit;
   line-height: 0;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-action-sheet-back-chevron {
@@ -107,6 +108,7 @@
   line-height: 1.35;
   text-align: left;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-action-sheet-item:hover {

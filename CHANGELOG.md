@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.4] - 2026-08-06
+
+### Changed
+
+- 下列可点面设置 `-webkit-tap-highlight-color: transparent`：`.fullscreen-overlay__chrome-button`、`.fullscreen-overlay-root`、`.site-overlay-backdrop`、`.mobile-action-sheet-back`。
+
+## [0.4.3] - 2026-08-06
+
+### Changed
+
+- `.mobile-action-sheet-item`：设置 `-webkit-tap-highlight-color: transparent`，避免与已有 `:active` 背景反馈叠系统灰闪。
+
 ## [0.4.2] - 2026-08-03
 
 ### Fixed
