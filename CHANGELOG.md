@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.7] - 2026-09-11
+
+### Changed
+
+- peer / devDependency `@umamichi-ui/common-css` 升至 `>=0.20.0` / `^0.20.0`（主题色 chroma ×0.75）。
+
 ## [0.4.6] - 2026-08-07
 
 ### Changed
