@@ -1,5 +1,14 @@
 # @umamichi-ui/common-components
 
+> [!WARNING]
+> **已弃用 / Deprecated.** 本项目已停止维护并转为只读存档。
+>
+> 自制组件路线在视觉设计、可访问性、代码维护等方面遇到了不小的困难，我们计划改为对现有 UI 框架进行定制，作为专用 UI 视觉方案。
+>
+> The custom-component route ran into considerable difficulties in visual design, accessibility, and code maintenance. We are moving to customizing an existing UI framework as our dedicated UI visual layer.
+>
+> npm 包 [`@umamichi-ui/common-components`](https://www.npmjs.com/package/@umamichi-ui/common-components) 已标记为 deprecated，请勿在新项目中使用。
+
 > 以下内容为 LLM 生成，且未经人工检查，请谨慎对待
 
 Umamichi 站点共用的 React UI 组件库，与 [@umamichi-ui/common-css](https://www.npmjs.com/package/@umamichi-ui/common-css) 配合使用。
